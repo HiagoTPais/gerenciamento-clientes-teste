@@ -15,8 +15,6 @@
 
     composer install
 
-    php artisan adminlte:install
-
     php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
 
     php artisan migrate
