@@ -7,6 +7,30 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Instalação
+
+-> Copie o arquivo .env
+
+-> Execute os comandos abaixo em ordem:
+
+    composer install
+
+    php artisan adminlte:install
+
+    php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+
+    php artisan migrate
+
+    php artisan db:seed --class=ClientTypeSeeder
+
+    php artisan storage:link
+
+    php artisan l5-swagger:generate
+
+    npm install
+
+    npm run dev
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
@@ -48,19 +49,27 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $user = User::where('email', $request->email)->get();
+        $body = $request->getContent();
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        $data = json_decode($body);
 
-            $response['token'] =  $user->createToken('token')->plainTextToken;
+        $user = User::where('email', $data->email)->first();
 
-            $response['name'] =  $user->name;
-
-            Log::info("Usuario $user->id logou na api de autenticação");
-
-            return response(201, $response);
-        } else {
-            return response(['error' => 'Unauthorised']);
+        if (!$user || !Hash::check($data->password, $user->password)) {
+            return response([
+                'message' => ['Usuario não foi encontrado.']
+            ], 404);
         }
+
+        $token = $user->createToken('token')->plainTextToken;
+
+        Log::info("Usuario $user->id logou na api de autenticação");
+
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+
+        return response($response, 201);
     }
 }

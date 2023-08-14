@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', function() { return view('welcome'); });
+    Route::get('/', function() { return redirect('/seller'); });
 
-    Route::get('/seller', 'SellerController@index');
+    Route::get('/seller', 'SellerController@index')->name('seller');
 
     Route::get('/seller-create', 'SellerController@create');
 
@@ -40,6 +40,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/customer-edit/{id}', 'CustomerController@edit');
 
     Route::put('/customer-update/{id}', 'CustomerController@update'); 
+});
+
+Route::group(['middleware' => 'web'], function () {
+    Route::get('api/documentation', '\L5Swagger\Http\Controllers\SwaggerController@api')->name('l5swagger.api');
 });
 
 Auth::routes();
