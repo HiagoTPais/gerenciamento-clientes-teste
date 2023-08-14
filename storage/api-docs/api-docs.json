@@ -1,0 +1,87 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api gerenciamento de clientes",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/customer/{name?}": {
+            "get": {
+                "tags": [
+                    "Buscar clientes"
+                ],
+                "operationId": "1d61fb007cd7d3b53a803303c623253c",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "text",
+                                            "example": "Carlos"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "operationId": "edade07842d993d88a259f59ba5bf1dd",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "": {
+                                        "properties": {
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "password": {
+                                                "type": "password"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "exemplo@gmail.com",
+                                    "password": "xxxxxxxx"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "400": {
+                        "description": "invalid"
+                    }
+                }
+            }
+        }
+    }
+}
